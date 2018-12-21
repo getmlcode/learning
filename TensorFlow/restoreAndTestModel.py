@@ -24,7 +24,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--dir', type=str, default=os.getcwd()+"\checkpoint", required=False, help='Checkpoint Directory')
-parser.add_argument('--model', type=str, default='simpleModel', required=False, help='Model Name')
+parser.add_argument('--model', type=str, default='simpleModel', required=False, help='Model Name (file name with .meta extension)')
 args = parser.parse_args()
 
 with tf.Session() as sess:
@@ -51,7 +51,7 @@ with tf.Session() as sess:
     
     NewResult = sess.run(ModifiedOutput,\
                          {x:np.array([0.36948335, 0.13245803, 0.10355939, 0.9436994 ]).reshape(1,4)})
-    print('\nNerResult=\n',NewResult)
+    print('\nNewResult=\n',NewResult)
     
 
     
