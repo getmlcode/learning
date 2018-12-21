@@ -1,0 +1,2 @@
+model_checkpoint_path: "D:\\Acads\\IISc ME\\Projects\\mycode\\learning\\TensorFlow\\SaveAndRstore\\GraphDef\\checkpoint\\simpleModel"
+all_model_checkpoint_paths: "D:\\Acads\\IISc ME\\Projects\\mycode\\learning\\TensorFlow\\SaveAndRstore\\GraphDef\\checkpoint\\simpleModel"
