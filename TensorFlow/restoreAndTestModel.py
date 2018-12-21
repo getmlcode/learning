@@ -33,26 +33,24 @@ with tf.Session() as sess:
     
     saver = tf.train.import_meta_graph(os.path.join(args.dir,args.model+'.meta'))
     nonZeroBias = tf.Variable(tf.ones((10,))) #Add new variable
-    sess.run(tf.global_variables_initializer())
-    
-    saver.restore(sess,os.path.join(args.dir,args.model)) #2nd argument should be everything before .data
 
     x = tf.get_collection('v')[0]
     w = tf.get_collection('v')[1]
     Output = tf.get_collection('v')[2]
     ModifiedOutput = Output + nonZeroBias #Append new node to the restored graph
     
+    #Intialize nonZeroBias before restoring saved graph values otherwise weights are reinitalized
+    sess.run(tf.global_variables_initializer()) 
+    saver.restore(sess,os.path.join(args.dir,args.model)) #2nd argument should be everything before .data
+    
+    #sess.run(tf.global_variables_initializer()) # If intialized here restored values of W will change
     #print(x)
     #print(w)
     #print(Output)
+
     result = sess.run([Output,x,w],{x:np.array([0.36948335, 0.13245803, 0.10355939, 0.9436994 ]).reshape(1,4)})
-    
     print("Result=\n{}\nX=\n{}\nW=\n{}".format(result[0],result[1],result[2]))
     
     NewResult = sess.run(ModifiedOutput,\
                          {x:np.array([0.36948335, 0.13245803, 0.10355939, 0.9436994 ]).reshape(1,4)})
-    print('\nNewResult=\n',NewResult)
-    
-
-    
-    
+    print('\nNewResult=\n',NewResult)    
