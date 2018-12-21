@@ -36,7 +36,7 @@ with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
     
     saver.restore(sess,os.path.join(args.dir,args.model)) #2nd argument should be everything before .data
-    #sess.run(tf.global_variables_initializer())
+
     x = tf.get_collection('v')[0]
     w = tf.get_collection('v')[1]
     Output = tf.get_collection('v')[2]
