@@ -1,4 +1,3 @@
-import numpy as np
 import tensorflow as tf
 import os
 import argparse
@@ -13,6 +12,9 @@ with tf.Session() as sess:
     print('Model Name : {}'.format(args.model))
     
     saver = tf.train.import_meta_graph(os.path.join(args.dir,args.model+'.meta'))
-    sess.run(tf.global_variables_initializer())
+    #sess.run(tf.global_variables_initializer())
     saver.restore(sess,os.path.join(args.dir,args.model))
-    
+    trainables = tf.trainable_variables()
+    for trainVars in trainables:
+        print(sess.run(trainVars))
+        print(trainVars)

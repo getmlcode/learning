@@ -1,4 +1,3 @@
-import numpy as np
 import tensorflow as tf
 import os
 import argparse
@@ -18,16 +17,18 @@ W=tf.Variable(tf.random_uniform((4,10),-1,1))
 X=tf.placeholder(tf.float32,(1,4))
 h=tf.nn.relu(tf.matmul(X,W)+b)
 
-#make collection of ops and vars so as to access them when graph is restored
-V=[X,W,h]
-tf.add_to_collection('v',V[0])
-tf.add_to_collection('v',V[1])
-tf.add_to_collection('v',V[2])
 
-saver = tf.train.Saver()
-with tf.Session() as sess:
-    sess.run(tf.global_variables_initializer())
-    result = sess.run([h,X,W],{X:np.array([0.36948335, 0.13245803, 0.10355939, 0.9436994 ]).reshape(1,4)})
-    print("Result=\n{}\nX=\n{}\nW=\n{}".format(result[0],result[1],result[2]))
-    '''save graph and weights'''
-    saver.save(sess,args.dir+"\\" + args.model)
+def_G = tf.get_default_graph() #get the default graph
+graphDef = def_G.as_graph_def() #returns serialized GraphDef representation of graph
+
+print(graphDef.node)
+for node in graphDef.node:
+    print(node.name)
+
+tf.train.write_graph(graphDef, args.dir, "test.pb", False)
+
+
+
+
+
+
