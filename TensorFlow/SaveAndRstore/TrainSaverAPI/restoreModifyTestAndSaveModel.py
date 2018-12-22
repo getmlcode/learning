@@ -53,4 +53,4 @@ with tf.Session() as sess:
     
     NewResult = sess.run(ModifiedOutput,\
                          {x:np.array([0.36948335, 0.13245803, 0.10355939, 0.9436994 ]).reshape(1,4)})
-    print('\nNewResult=\n',NewResult)    
+    print('\nNewResult=\n',NewResult)
