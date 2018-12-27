@@ -10,9 +10,9 @@ parser.add_argument('--dir', type=str,
                     default=os.getcwd()+"\checkpoint", 
                     required=False, 
                     help='Checkpoint Directory')
-parser.add_argument('--model', type=str, 
-                    default='simpleModel', 
-                    required=False, 
+parser.add_argument('--model', type=str,
+                    default='simpleModel',
+                    required=False,
                     help='Model Name')
 
 args = parser.parse_args()
@@ -24,10 +24,10 @@ print('Model Name : {}'.format(args.model))
 
 
 
-b=tf.Variable(tf.zeros((10,)))
-W=tf.Variable(tf.random_uniform((4,10),-1,1))
-X=tf.placeholder(tf.float32,(1,4))
-h=tf.nn.relu(tf.matmul(X,W)+b)
+b=tf.Variable(tf.zeros((10,)),name='zeroBias')
+W=tf.Variable(tf.random_uniform((4,10),-1,1),name='Weights')
+X=tf.placeholder(tf.float32,(1,4),name="input")
+h=tf.nn.relu(tf.matmul(X,W)+b,name='ReluOUT')
 
 
 print('\nInitializing and saving graph checkpoints')
@@ -40,8 +40,8 @@ with tf.Session() as sess:
     saver.save(sess,args.dir+"\\" + args.model) #create checkpoints
 
 graphDef = tf.get_default_graph().as_graph_def() # serialized GraphDef representation of default graph
-print('collections : ',tf.get_default_graph().collections) 
-print(graphDef.node)
+print('collections : ',tf.get_default_graph().collections)
+#print(graphDef.node)
 for node in graphDef.node:
     print("name :",node.name)
     print("\t -op :",node.op)
@@ -52,21 +52,20 @@ for node in graphDef.node:
 # to create frozenGraph.pb.
 # freeze_graph.py is in tensorflow/python/tools
 
-print('\nSaving graph def')
+print('\nSaving proto file')
 tf.train.write_graph(graphDef, args.dir, "test.pb", False)
-print('\nFreezing Graph')
 
-loc=\
+print('\nFreezing Graph')
 freeze_graph.freeze_graph(input_graph=args.dir+'\\test.pb',
                           input_saver='',
                           input_checkpoint=args.dir+'\\simpleModel',
                           output_graph=args.dir+'\\frozenGraph.pb',
                           input_binary=True,
-                          output_node_names='Relu',
+                          output_node_names='ReluOUT',
                           initializer_nodes='',
                           filename_tensor_name='',
                           restore_op_name='',
                           clear_devices=True
                           )
-print('\nGraph Frozen',)
+print('\nGraph Frozen')
 

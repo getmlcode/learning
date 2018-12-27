@@ -10,8 +10,7 @@ parser.add_argument('--dir', type=str, default=os.getcwd()+"\data", required=Fal
 parser.add_argument('--fname', type=str, default='test', required=False)
 args = parser.parse_args()
 
-def processText():
-    
+def iterateOverText():
     dataset = tf.data.TextLineDataset(args.dir + '\\' + args.fname + '.'+ args.dt)
     iterator = dataset.make_one_shot_iterator()
     nextElement = iterator.get_next()
@@ -63,4 +62,4 @@ def processNumpyArray():
 if __name__=="__main__":
     
     if args.dt == 'txt':
-        processText()    
+        iterateOverText()    

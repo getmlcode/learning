@@ -37,8 +37,11 @@ print('c:{}'.format(c.eval()))
 var = tf.Variable(tf.random_normal((1,5),4,1),name='var')
 print('pre run var = {}'.format(var))
 
+y_true = tf.placeholder(tf.float32,shape=[None,None],name='trueTarget') #can pass any 2-D object
 
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
+    print(sess.run(y_true,{y_true:[[2,3],[4,5]]}))
     post_var = sess.run(var)
+    
 print("\npost run: \n{}".format(post_var))

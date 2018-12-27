@@ -9,7 +9,6 @@
 
 import tensorflow as tf
 import numpy as np
-import time
 
 # === Create Artificial Data ===
 def getArtificialData(noOfDataPoints,noOfFeatures):
@@ -56,7 +55,7 @@ def fitParametersToData(Data,
     '''create dataset using TF Dataset API'''
     dataset = tf.data.Dataset.from_tensor_slices((Data, Target.T))
     dataset = dataset.batch(batchSize)
-    dataset = dataset.shuffle(buffer_size = noOfDataPoints)
+    dataset = dataset.shuffle(buffer_size = noOfDataPoints) #Algo gets different sets of databatch
     cycleIterator = dataset.make_initializable_iterator()
     nextBatch = cycleIterator.get_next()
     
