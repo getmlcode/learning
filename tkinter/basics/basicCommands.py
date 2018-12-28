@@ -1,6 +1,7 @@
 from tkinter import *
 
 root =  Tk()
+
 theLabel = Label(root,text='My First Tkinter Code')
 theLabel.pack()
 
