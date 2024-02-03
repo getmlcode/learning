@@ -17,10 +17,6 @@ class sidButton:
     def printMessage(self):
         print('so it works')
 
-
-
-
-
 root =  Tk()
 s = sidButton(root)
 root.mainloop()
