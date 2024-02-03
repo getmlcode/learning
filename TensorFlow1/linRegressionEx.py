@@ -2,7 +2,7 @@
     This doesn't take overfitting and underfitting into account,
     just bare bones stuff to understand how Tensorflow works.
     
-    It demostrates the use of Tensoflow Dataset API for creating
+    It demonstrates the use of Tensoflow Dataset API for creating
     data batches and cycle through dataset.
     
 '''
