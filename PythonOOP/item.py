@@ -11,17 +11,34 @@ class Item(object):
         assert quantity>=0, "quantity arg can't be negative"
 
         # Assign values to object attrib
-        self.name = name
-        self.price = price
+        self.__name = name
+        self.__price = price
         self.quantity = quantity
 
         Item.all.append(self)
 
     def getTotalPrice(self):
-        return self.price*self.quantity
+        return self.__price*self.quantity
 
     def applyDiscount(self):
-        self.price = self.price * self.payRate
+        self.__price = self.__price * self.payRate
+
+    def incrementPrice(self, incrementAmount):
+        assert incrementAmount >=0, "increment amount can't be negative"
+        self.__price = self.__price + incrementAmount
+
+    def sendEmail(self, message: str):
+        self.__connect()
+        self.__prepEmailBody()
+        self.__send()
+
+    # Private function names begin with __ <double underscore>
+    def __connect(self):
+        pass
+    def __prepEmailBody(self):
+        pass
+    def __send(self):
+        pass
 
     @classmethod
     def instantiateFromCsv(cls):
@@ -51,3 +68,15 @@ class Item(object):
         # Returning string to represent this object
         return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"
         #return json.dumps(self.__dict__)
+
+    @property
+    def price(self):
+        return self.__price
+
+    @property
+    def name(self):
+        return self.__name
+
+    @name.setter
+    def name(self, value: str):
+        self.__name = value
