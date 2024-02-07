@@ -1,0 +1,6 @@
+2024-02-07 09:50:39,412 INFO Line-20: this is info message
+2024-02-07 09:50:39,413 WARNING Line-21: this is warning message
+2024-02-07 09:50:39,413 ERROR Line-22: this is error message
+2024-02-07 09:50:39,414 CRITICAL Line-23: this is critical message
+2024-02-07 09:50:54,291 CRITICAL Line-23: this is critical message
+2024-02-07 12:41:22,955 CRITICAL   Line-23: this is critical message
