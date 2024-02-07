@@ -6,7 +6,8 @@ config={
 
     'formatters':{
         'standard':{
-            'format':"%(asctime)-10s: %(lineno)d %(message)s"
+            'format':"%(asctime)s %(levelname)-10s: %(name)s - %(lineno)d %(message)s",
+            'datefmt':"%Y-%m-%d %H:%M:%S"
             }
         },
 
@@ -31,6 +32,11 @@ config={
             'level':"DEBUG",
             'handlers':['default','filehandler'],
             'propagate':True
+            },
+        "siddharth":{
+            'level':"INFO",
+            'handlers':['default'],
+            'propagate':False
             }
         }
     }
@@ -44,6 +50,13 @@ def main() -> None:
     logging.warning("this is warning message")
     logging.error("this is error message")
     logging.critical("this is critical message")
+
+    sidLogger = logging.getLogger('siddharth')
+    sidLogger.debug("this is debug message")
+    sidLogger.info("this is info message")
+    sidLogger.warning("this is warning message")
+    sidLogger.error("this is error message")
+    sidLogger.critical("this is critical message")
 
 if __name__=="__main__":
     main()
